@@ -53,6 +53,8 @@ class Blockchain:
         while block_index < len(chain):
             # Check that for each block the previous hash is the hash of the previous block
             block = chain[block_index]
+            # print(block["previous_hash"], self.hash(previous_block))
+
             if block["previous_hash"] != self.hash(previous_block):
                 return False # The blockchain is invalid
             
@@ -60,6 +62,7 @@ class Blockchain:
             previous_proof = previous_block["proof"]
             proof = block["proof"]
             hash_operation = hashlib.sha256(str(proof**2 - previous_proof**2).encode()).hexdigest()
+            # print(hash_operation)
             if hash_operation[:4] != '0000':
                 return False # The blockchain is invalid
             previous_block = block
